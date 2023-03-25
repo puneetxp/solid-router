@@ -1,4 +1,4 @@
-import { Component, JSX } from "solid-js";
+import { Accessor, Component, JSX } from "solid-js";
 
 export type Params = Record<string, string>;
 
@@ -59,29 +59,29 @@ export type RouteDefinition<S extends string | string[] = any> = {
   data?: RouteDataFunc;
   children?: RouteDefinition | RouteDefinition[];
 } & (
-  | {
+    | {
       element?: never;
       component: Component;
     }
-  | {
+    | {
       component?: never;
       element?: JSX.Element;
       preload?: () => void;
     }
-);
+  );
 
 export type MatchFilter = string[] | RegExp | ((s: string) => boolean);
 
 export type PathParams<P extends string | readonly string[]> =
   P extends `${infer Head}/${infer Tail}`
-    ? [...PathParams<Head>, ...PathParams<Tail>]
-    : P extends `:${infer S}?`
-    ? [S]
-    : P extends `:${infer S}`
-    ? [S]
-    : P extends `*${infer S}`
-    ? [S]
-    : [];
+  ? [...PathParams<Head>, ...PathParams<Tail>]
+  : P extends `:${infer S}?`
+  ? [S]
+  : P extends `:${infer S}`
+  ? [S]
+  : P extends `*${infer S}`
+  ? [S]
+  : [];
 
 export type MatchFilters<P extends string | readonly string[] = any> = P extends string
   ? { [K in PathParams<P>[number]]?: MatchFilter }
@@ -104,7 +104,7 @@ export interface OutputMatch {
 }
 
 export interface Route {
-  key: unknown;
+  key: any;
   originalPath: string;
   pattern: string;
   element: () => JSX.Element;
@@ -113,14 +113,16 @@ export interface Route {
   matcher: (location: string) => PathMatch | null;
   matchFilters?: MatchFilters;
 }
-
+export interface key_guard {
+  guard?: Accessor<string | false>;
+}
 export interface Branch {
   routes: Route[];
   score: number;
   matcher: (location: string) => RouteMatch[] | null;
 }
 
-export interface RouteContext {
+export interface RouteContext extends key_guard {
   parent?: RouteContext;
   child?: RouteContext;
   data?: unknown;

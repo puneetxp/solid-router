@@ -513,7 +513,7 @@ export function createRouteContext(
   const { base, location, navigatorFactory } = router;
   const { pattern, element: outlet, preload, data } = match().route;
   const path = createMemo(() => match().path);
-
+  const guard = match().route.key?.guard;
   preload && preload();
 
   const route: RouteContext = {
@@ -524,6 +524,7 @@ export function createRouteContext(
     },
     path,
     params,
+    guard,
     data: parent.data,
     outlet,
     resolvePath(to: string) {

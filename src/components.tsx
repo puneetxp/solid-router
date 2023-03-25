@@ -1,6 +1,6 @@
 /*@refresh skip*/
 
-import type { Component, JSX } from "solid-js";
+import type { Accessor,  Component, JSX } from "solid-js";
 import { children, createMemo, createRoot, mergeProps, on, Show, splitProps } from "solid-js";
 import { isServer } from "solid-js/web";
 import { pathIntegration, staticIntegration } from "./integration";
@@ -48,15 +48,15 @@ export type RouterProps = {
   children: JSX.Element;
   out?: object;
 } & (
-  | {
+    | {
       url?: never;
       source?: RouterIntegration | LocationChangeSignal;
     }
-  | {
+    | {
       source?: never;
       url: string;
     }
-);
+  );
 
 export const Router = (props: RouterProps) => {
   const { source, url, base, data, out } = props;
@@ -162,18 +162,19 @@ export type RouteProps<S extends string> = {
   path: S | S[];
   children?: JSX.Element;
   data?: RouteDataFunc;
+  guard?: Accessor<void>;
   matchFilters?: MatchFilters<S>;
 } & (
-  | {
+    | {
       element?: never;
       component: Component;
     }
-  | {
+    | {
       component?: never;
       element?: JSX.Element;
       preload?: () => void;
     }
-);
+  );
 
 export const Route = <S extends string>(props: RouteProps<S>) => {
   const childRoutes = children(() => props.children);
@@ -188,7 +189,7 @@ export const Outlet = () => {
   const route = useRoute();
   return (
     <Show when={route.child} keyed>
-      {child => <RouteContextObj.Provider value={child}>{child.outlet()}</RouteContextObj.Provider>}
+      {child => <RouteContextObj.Provider value={child}>{child.guard ? child?.guard() != false ? '' : Navigate({ href: child.guard().toString() }) : ''}{child.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };
@@ -220,7 +221,7 @@ export function A(props: AnchorProps) {
     if (to_ === undefined) return false;
     const path = normalizePath(to_.split(/[?#]/, 1)[0]).toLowerCase();
     const loc = normalizePath(location.pathname).toLowerCase();
-    return props.end ? path === loc : loc.startsWith(path);
+    return props.children ? path === loc : loc.startsWith(path);
   });
 
   return (
