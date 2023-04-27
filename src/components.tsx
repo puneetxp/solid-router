@@ -154,7 +154,10 @@ export const Routes = (props: RoutesProps) => {
   );
 };
 
-export const useRoutes = (routes: RouteDefinition | RouteDefinition[], base?: string) => {
+export const useRoutes = (
+  routes: RouteDefinition | RouteDefinition[] | Readonly<RouteDefinition[]>,
+  base?: string
+) => {
   return () => <Routes base={base}>{routes as any}</Routes>;
 };
 
@@ -196,12 +199,12 @@ export const Outlet = () => {
 
 export interface AnchorProps extends Omit<JSX.AnchorHTMLAttributes<HTMLAnchorElement>, "state"> {
   href: string;
-  replace?: boolean;
-  noScroll?: boolean;
-  state?: unknown;
-  inactiveClass?: string;
-  activeClass?: string;
-  end?: boolean;
+  replace?: boolean | undefined;
+  noScroll?: boolean | undefined;
+  state?: unknown | undefined;
+  inactiveClass?: string | undefined;
+  activeClass?: string | undefined;
+  end?: boolean | undefined;
 }
 export function A(props: AnchorProps) {
   props = mergeProps({ inactiveClass: "inactive", activeClass: "active" }, props);
