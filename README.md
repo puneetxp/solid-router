@@ -30,6 +30,7 @@ It supports all of Solid's SSR methods and has Solid's transitions baked in, so 
   - [useMatch](#usematch)
   - [useRoutes](#useroutes)
   - [useBeforeLeave](#usebeforeleave)
+- [SPAs in Deployed Environments](#spas-in-deployed-environments)
 
 ## Getting Started
 
@@ -218,7 +219,13 @@ export default function App() {
 
 The colon indicates that `id` can be any string, and as long as the URL fits that pattern, the `User` component will show.
 
-You can then access that `id` from within a route component with `useParams`:
+You can then access that `id` from within a route component with `useParams`.
+
+> **Note on Animation/Transitions**:
+> Routes that share the same path match will be treated as the same route. If you want to force re-render you can wrap your component in a keyed `<Show>` like:
+> ```js
+><Show when={params.something} keyed><MyComponent></Show>
+>```
 
 ---
 
@@ -713,4 +720,27 @@ useBeforeLeave((e: BeforeLeaveEventArgs) => {
     }, 100);
   }
 });
+```
+
+## SPAs in Deployed Environments
+
+When deploying applications that use a client side router that does not rely on Server Side Rendering you need to handle redirects to your index page so that loading from other URLs does not cause your CDN or Hosting to return not found for pages that aren't actually there.
+
+Each provider has a different way of doing this. For example on Netlify you create a `_redirects` file that contains:
+
+```sh
+/*   /index.html   200
+```
+
+On Vercel you add a rewrites section to your `vercel.json`:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
 ```
