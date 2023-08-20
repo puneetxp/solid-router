@@ -32,7 +32,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
       - run: |
-          echo "@username:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "@puneetxp:registry=https://npm.pkg.github.com" >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
       - run: npm publish
         env:
