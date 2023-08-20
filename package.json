@@ -1,16 +1,16 @@
 {
-  "name": "@solidjs/router",
-  "description": "Universal router for SolidJS",
-  "author": "Ryan Carniato",
+  "name": "@puneetxp/the-solid-router",
+  "description": "Fork of Universal router for SolidJS by Ryan Carniato",
+  "author": "Puneet Sharma",
   "contributors": [
     "Ryan Turnquist"
   ],
   "license": "MIT",
   "version": "0.8.3",
-  "homepage": "https://github.com/solidjs/solid-router#readme",
+  "homepage": "https://github.com/puneetxp/solid-router#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/solidjs/solid-router"
+    "url": "https://github.com/puneetxp/solid-router"
   },
   "publishConfig": {
     "access": "public"
