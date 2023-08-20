@@ -1,6 +1,6 @@
 /*@refresh skip*/
 
-import type { Accessor,  Component, JSX } from "solid-js";
+import type { Accessor, Component, JSX } from "solid-js";
 import { children, createMemo, createRoot, mergeProps, on, Show, splitProps } from "solid-js";
 import { isServer } from "solid-js/web";
 import { pathIntegration, staticIntegration } from "./integration";
@@ -149,7 +149,7 @@ export const Routes = (props: RoutesProps) => {
 
   return (
     <Show when={routeStates() && root} keyed>
-      {route => <RouteContextObj.Provider value={route}>{route.outlet()}</RouteContextObj.Provider>}
+      {route => <RouteContextObj.Provider value={route}>{route.guard && route?.guard() && Navigate({ href: route.guard().toString() }) || route.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };
@@ -192,7 +192,7 @@ export const Outlet = () => {
   const route = useRoute();
   return (
     <Show when={route.child} keyed>
-      {child => <RouteContextObj.Provider value={child}>{child.guard ? child?.guard() != false ? '' : Navigate({ href: child.guard().toString() }) : ''}{child.outlet()}</RouteContextObj.Provider>}
+      {child => <RouteContextObj.Provider value={child}>{child.guard && child?.guard() && Navigate({ href: child.guard().toString() }) || child.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };

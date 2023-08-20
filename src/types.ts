@@ -57,6 +57,7 @@ export type RouteDefinition<S extends string | string[] = any> = {
   path: S;
   matchFilters?: MatchFilters<S>;
   data?: RouteDataFunc;
+  preload?: any;
   children?: RouteDefinition | RouteDefinition[];
 } & (
     | {

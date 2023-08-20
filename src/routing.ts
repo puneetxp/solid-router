@@ -526,7 +526,7 @@ export function createRouteContext(
     },
     path,
     params,
-    guard,
+    guard:guard,
     data: parent.data,
     outlet,
     resolvePath(to: string) {
