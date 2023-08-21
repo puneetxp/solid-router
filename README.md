@@ -636,6 +636,13 @@ const notLogin: Accessor<string | true> = createMemo(() => {
   if (JSON.parse(JSON.stringify(LoginService.get())).login != false) { return '/' }
   return true;
 });
+export const isbook = (book_id: string) =>
+  createMemo(() => {
+    if (books().find((i) => i.id == Number(book_id))) {
+      return false;
+    }
+    return "/book";
+  });
 const App: Component = () => {
   return (
     <>
