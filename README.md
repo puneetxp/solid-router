@@ -2,7 +2,7 @@
   <img src="https://assets.solidjs.com/banner?project=Router&type=core" alt="Solid Router" />
 </p>
 
-# Solid Router [![npm Version](https://img.shields.io/npm/v/@solidjs/router.svg?style=flat-square)](https://www.npmjs.org/package/@solidjs/router)
+# Solid Router [![npm Version](https://img.shields.io/npm/v/the-solid-router.svg?style=flat-square)](https://www.npmjs.org/package/the-solid-router)
 
 A router lets you change your view based on the URL in the browser. This allows your "single-page" application to simulate a traditional multipage site. To use Solid Router, you specify components called Routes that depend on the value of the URL (the "path"), and the router handles the mechanism of swapping them in and out.
 
@@ -37,14 +37,14 @@ It supports all of Solid's SSR methods and has Solid's transitions baked in, so 
 ### Set Up the Router
 
 ```sh
-> npm i @solidjs/router
+> npm i the-solid-router
 ```
 
-Install `@solidjs/router`, then wrap your root component with the Router component:
+Install `the-solid-router`, then wrap your root component with the Router component:
 
 ```jsx
 import { render } from "solid-js/web";
-import { Router } from "@solidjs/router";
+import { Router } from "the-solid-router";
 import App from "./App";
 
 render(
@@ -66,7 +66,7 @@ Solid Router allows you to configure your routes using JSX:
 1. Use the `Routes` component to specify where the routes should appear in your app.
 
 ```jsx
-import { Routes, Route } from "@solidjs/router";
+import { Routes, Route } from "the-solid-router";
 
 export default function App() {
   return (
@@ -81,7 +81,7 @@ export default function App() {
 2. Add each route using the `Route` component, specifying a path and an element or component to render when the user navigates to that path.
 
 ```jsx
-import { Routes, Route } from "@solidjs/router";
+import { Routes, Route } from "the-solid-router";
 
 import Home from "./pages/Home";
 import Users from "./pages/Users";
@@ -109,7 +109,7 @@ This way, the `Users` and `Home` components will only be loaded if you're naviga
 
 ```jsx
 import { lazy } from "solid-js";
-import { Routes, Route } from "@solidjs/router";
+import { Routes, Route } from "the-solid-router";
 const Users = lazy(() => import("./pages/Users"));
 const Home = lazy(() => import("./pages/Home"));
 
@@ -136,7 +136,7 @@ Use the `A` component to create an anchor tag that takes you to a route:
 
 ```jsx
 import { lazy } from "solid-js";
-import { Routes, Route, A } from "@solidjs/router";
+import { Routes, Route, A } from "the-solid-router";
 const Users = lazy(() => import("./pages/Users"));
 const Home = lazy(() => import("./pages/Home"));
 
@@ -194,7 +194,7 @@ If you don't know the path ahead of time, you might want to treat part of the pa
 
 ```jsx
 import { lazy } from "solid-js";
-import { Routes, Route } from "@solidjs/router";
+import { Routes, Route } from "the-solid-router";
 const Users = lazy(() => import("./pages/Users"));
 const User = lazy(() => import("./pages/User"));
 const Home = lazy(() => import("./pages/Home"));
@@ -234,7 +234,7 @@ This allows for more complex routing descriptions than just checking the presenc
 
 ```tsx
 import { lazy } from "solid-js";
-import { Routes, Route } from "@solidjs/router";
+import { Routes, Route } from "the-solid-router";
 import type { SegmentValidators } from "./types";
 
 const Users = lazy(() => import("./pages/Users"));
@@ -332,7 +332,7 @@ To do this, create a function that fetches and returns the data using `createRes
 
 ```js
 import { lazy } from "solid-js";
-import { Route } from "@solidjs/router";
+import { Route } from "the-solid-router";
 import { fetchUser } ...
 
 const User = lazy(() => import("./pages/users/[id].js"));
@@ -351,7 +351,7 @@ When the route is loaded, the data function is called, and the result can be acc
 
 ```jsx
 // pages/users/[id].js
-import { useRouteData } from "@solidjs/router";
+import { useRouteData } from "the-solid-router";
 
 export default function User() {
   const user = useRouteData();
@@ -372,7 +372,7 @@ A common pattern is to export the data function that corresponds to a route in a
 
 ```js
 import { lazy } from "solid-js";
-import { Route } from "@solidjs/router";
+import { Route } from "the-solid-router";
 import { fetchUser } ...
 import UserData from "./pages/users/[id].data.js";
 const User = lazy(() => import("/pages/users/[id].js"));
@@ -419,7 +419,7 @@ Only leaf Route nodes (innermost `Route` components) are given a route. If you w
 You can also take advantage of nesting by adding a parent element with an `<Outlet/>`.
 
 ```jsx
-import { Outlet } from "@solidjs/router";
+import { Outlet } from "the-solid-router";
 
 function PageWrapper() {
   return (
@@ -470,7 +470,7 @@ If you declare a `data` function on a parent and a child, the result of the pare
 By default, Solid Router uses `location.pathname` as route path. You can simply switch to hash mode through the `source` property on `<Router>` component.
 
 ```jsx
-import { Router, hashIntegration } from "@solidjs/router";
+import { Router, hashIntegration } from "the-solid-router";
 
 <Router source={hashIntegration()}>
   <App />
@@ -482,7 +482,7 @@ import { Router, hashIntegration } from "@solidjs/router";
 You can also use memory mode router for testing purpose.
 
 ```jsx
-import { Router, memoryIntegration } from "@solidjs/router";
+import { Router, memoryIntegration } from "the-solid-router";
 
 <Router source={memoryIntegration()}>
   <App />
@@ -496,7 +496,7 @@ You don't have to use JSX to set up your routes; you can pass an object directly
 ```jsx
 import { lazy } from "solid-js";
 import { render } from "solid-js/web";
-import { Router, useRoutes, A } from "@solidjs/router";
+import { Router, useRoutes, A } from "the-solid-router";
 
 const routes = [
   {
