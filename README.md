@@ -645,6 +645,9 @@ const App: Component = () => {
             <Route path='' component={HomePage} />
             <Route path='login/' guard={notLogin} component={Login_Page} />
             <Route path='register/' guard={notLogin} component={RegisterPage} />
+            <Route path={'/book'}>
+              <Route path={"/:book_id"} guard={isbook(useParams().book_id)}/>
+            </Route>
           </Route>
         </Routes>
       </Router>
