@@ -149,7 +149,7 @@ export const Routes = (props: RoutesProps) => {
 
   return (
     <Show when={routeStates() && root} keyed>
-      {route => <RouteContextObj.Provider value={route}>{route.guard && route?.guard() && Navigate({ href: route.guard().toString() }) || route.outlet()}</RouteContextObj.Provider>}
+      {route => <RouteContextObj.Provider value={route}>{route.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };
@@ -192,7 +192,7 @@ export const Outlet = () => {
   const route = useRoute();
   return (
     <Show when={route.child} keyed>
-      {child => <RouteContextObj.Provider value={child}>{child.guard && child?.guard() && Navigate({ href: child.guard().toString() }) || child.outlet()}</RouteContextObj.Provider>}
+      {child => <RouteContextObj.Provider value={child}>{child.guard && child?.guard() && Navigate({ href: child.guard() }) || child.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };
