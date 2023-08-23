@@ -149,7 +149,7 @@ export const Routes = (props: RoutesProps) => {
 
   return (
     <Show when={routeStates() && root} keyed>
-      {route => <RouteContextObj.Provider value={route}>{route.outlet()}</RouteContextObj.Provider>}
+      {route => <RouteContextObj.Provider value={route}>{route.guard && route?.guard() && Navigate({ href: route.guard().toString() }) || route.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };
