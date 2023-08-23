@@ -192,7 +192,7 @@ export const Outlet = () => {
   const route = useRoute();
   return (
     <Show when={route.child} keyed>
-      {child => <RouteContextObj.Provider value={child}>{child.guard && child?.guard() && Navigate({ href: child.guard() }) || child.outlet()}</RouteContextObj.Provider>}
+      {child => <RouteContextObj.Provider value={child}>{child.guard && child?.guard() && Navigate({ href: child.guard().toString() }) || child.outlet()}</RouteContextObj.Provider>}
     </Show>
   );
 };
